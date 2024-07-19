@@ -44,10 +44,14 @@ public class BukkitUpdater extends Updater {
     @Override
     protected PlayerProfileProvider getAuthenticProfileProvider() {
         if (isSkinsRestorerAvailable) {
-            return new SkinsRestorerProfileProvider();
-        } else {
-            return super.getAuthenticProfileProvider();
+            try {
+                return new SkinsRestorerProfileProvider();
+            } catch (Exception e) {
+                // trying to retrieve the SkinsRestorer API may fail in certain scenarios
+                log.writeError("failed to retrieve SkinsRestorer API -- defaulting to Mojang", e);
+            }
         }
+        return super.getAuthenticProfileProvider();
     }
 
     @Override
@@ -69,6 +73,6 @@ public class BukkitUpdater extends Updater {
     @Override
     public void run() {
         super.run();
-        log.writeLine("Web frontend updated.");
+        //log.writeLine("Web frontend updated.");
     }
 }
