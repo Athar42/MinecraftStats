@@ -593,6 +593,7 @@ public abstract class Updater {
                     if (serverName == null) {
                         // try all data sources for a server.properties file
                         serverName = getServerMotd();
+
                         if (serverName != null) {
                             serverName = serverName.replace("\n", "<br>");
                         }
